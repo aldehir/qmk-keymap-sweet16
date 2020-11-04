@@ -6,10 +6,16 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_ortho_4x4(
-        KC_7, KC_8,   KC_9,   KC_ASTR,
-        KC_4, KC_5,   KC_6,   KC_SLSH,
-        KC_1, KC_2,   KC_3,   KC_MINS,
-        KC_0, KC_ENT, KC_DOT, KC_EQL
+        LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4),
+        LALT(KC_Q), LALT(KC_W), LALT(KC_E), LALT(KC_R),
+        LALT(KC_A), LALT(KC_S), LALT(KC_D), LALT(KC_F),
+        OSL(1),     LALT(KC_X), LALT(KC_C), LALT(KC_V)
+    ),
+    LAYOUT_ortho_4x4(
+        KC_MEDIA_PLAY_PAUSE, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_AUDIO_VOL_UP,
+        LCA(KC_Q),           LCA(KC_W),           LCA(KC_E),           KC_AUDIO_VOL_DOWN,
+        LCA(KC_A),           LCA(KC_S),           LCA(KC_D),           LCA(KC_F),
+        LWIN(LSFT(KC_S)),    LCA(KC_X),           LCA(KC_C),           LCA(KC_V)
     )
 };
 
@@ -24,16 +30,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-#ifdef ENCODER_ENABLE
-#include "encoder.h"
-void encoder_update_user(int8_t index, bool clockwise) {
-  if (index == 0) { /* First encoder */
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
-    }
-  }
-}
-#endif
